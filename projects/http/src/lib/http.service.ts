@@ -81,12 +81,35 @@ export class HttpService {
   }
 
   /**
-   *
+   * mockup data generation
    * @param request request sent to the server
    * @param fn call function to
+   * @param args the arguments of the called data generation function
    */
-  protected mockupInterceptor(request: HttpRequest<any>, fn: Function): Observable<HttpResponse<any>> {
+  protected mockupInterceptor(request: HttpRequest<any>, fn: Function, args: { time: number }): Observable<HttpResponse<any>> {
+    if (fn) {
 
+      return new Observable<HttpResponse<any>>(obs => {
+
+        let data: any;
+        try {
+          data = fn.call(undefined, request);
+        } catch (err) {
+          obs.error(err);
+          return;
+        }
+
+        if (args.time) {
+          setTimeout(() => {
+            obs.next(data);
+            obs.complete();
+          }, args.time);
+        } else {
+          obs.next(data);
+          obs.complete();
+        }
+      });
+    }
   }
 
   /**

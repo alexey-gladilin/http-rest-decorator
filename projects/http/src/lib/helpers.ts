@@ -38,7 +38,7 @@ export function methodBuilder(method: string) {
         let obs$: Observable<HttpResponse<any>>;
 
         if (descriptor.mockup) {
-          obs$ = this.mockupInterceptor(request, descriptor.mockup);
+          obs$ = this.mockupInterceptor(request, descriptor.mockup, descriptor.mockupArgs);
         } else {
           obs$ = this.http.request(request);
         }
