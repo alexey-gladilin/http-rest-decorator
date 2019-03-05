@@ -103,6 +103,17 @@ export function adapter(adapters: {
 }
 
 /**
+ * mockup data generation
+ * @param fn called function to generate mockup data
+ */
+export function mockup(fn: Function) {
+  return function (target: HttpService, propertyKey: string, descriptor: any) {
+    descriptor.mockup = fn;
+    return descriptor;
+  };
+}
+
+/**
  * variables are passed in url
  */
 export const path = paramBuilder('path');

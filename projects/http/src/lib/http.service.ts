@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from 'selenium-webdriver/http';
 import {
   HttpRequest,
-  HttpEventType
+  HttpEventType,
+  HttpResponse
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ResponseArgAdapter } from './http.decorator';
@@ -77,6 +78,15 @@ export class HttpService {
         }),
         mergeMap(res => HttpAdapter.baseResponseAdapter(res, adapters, this))
       );
+  }
+
+  /**
+   *
+   * @param request request sent to the server
+   * @param fn call function to
+   */
+  protected mockupInterceptor(request: HttpRequest<any>, fn: Function): Observable<HttpResponse<any>> {
+
   }
 
   /**
