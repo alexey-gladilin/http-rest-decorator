@@ -55,16 +55,16 @@ export class HttpService {
   }
 
   /**
-   * interceptor responses
+   * responses interceptor
    * @param request request sent to the server
-   * @param adapterFn call function to prepare response data
+   * @param adapterFn call function to prepare request data
    */
   protected requestInterceptor(request: HttpRequest<any>, adapterFn?: Function[]): HttpRequest<any> {
     return HttpAdapter.baseRequestAdapter(request, adapterFn);
   }
 
   /**
-   * interceptor responses
+   * responses interceptor
    * @param response$ response received from the server
    * @param adapters call function metadata to prepare response data
    */
@@ -80,7 +80,7 @@ export class HttpService {
   }
 
   /**
-   * interceptor request (for request sync)
+   * request interceptor (for request sync)
    * @param body request data sent to the server
    * @param adapterFn call function to prepare request data
    */
@@ -89,7 +89,7 @@ export class HttpService {
   }
 
   /**
-   * interceptor responses (for request sync)
+   * responses interceptor (for request sync)
    * @param body response received from the server
    * @param adapterFn call function to prepare response data
    */
