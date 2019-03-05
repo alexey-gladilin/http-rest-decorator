@@ -32,7 +32,7 @@ export function methodBuilder(method: string) {
         });
 
         if (descriptor.adapters) {
-          request = this.requestInterceptro(request, descriptor.adapters.requestFn);
+          request = this.requestInterceptor(request, descriptor.adapters.requestFn);
         }
 
         let obs$: Observable<HttpResponse<any>> = this.http.request(request);
