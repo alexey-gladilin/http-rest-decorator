@@ -19,11 +19,8 @@
       "dom"
     ],
     "paths": {
-      "http": [
-        "dist/http"
-      ],
-      "http/*": [
-        "dist/http/*"
+      "http-rest-decorator": [
+        "projects/http/src/public_api"
       ]
     }
   }
