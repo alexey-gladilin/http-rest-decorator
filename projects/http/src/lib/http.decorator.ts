@@ -12,7 +12,7 @@ import {
  * request url base
  * @param url url webApi host
  */
-export function baseUrl(url: string) {
+export function BaseUrl(url: string) {
   return function <TFunction extends Function>(target: TFunction): TFunction {
     if (url && url[url.length - 1] !== '/') {
       url += '/';
@@ -26,10 +26,10 @@ export function baseUrl(url: string) {
  * sets the default request header for each method HttpService
  * @param pHeaders http request headers
  */
-export function defaultHeaders(pHeaders: any) {
+export function DefaultHeaders(pHeaders: string | { [name: string]: string | string[] }) {
   return function <TFunction extends Function>(target: TFunction): TFunction {
     target.prototype.getDefaultHeaders = () => pHeaders;
-    return pHeaders;
+    return target;
   };
 }
 

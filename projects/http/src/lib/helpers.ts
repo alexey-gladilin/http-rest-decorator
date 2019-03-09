@@ -12,7 +12,7 @@ import { Observable } from 'rxjs';
  * @param method http request type (GET, POST, PUT, etc.)
  */
 export function methodBuilder(method: string) {
-  return function (url: string) {
+  return function (url?: string) {
     return function (target: HttpService, propertyKey: string, descriptor: any) {
 
       const pPath = target[`${propertyKey}_path_parameters`];
@@ -22,7 +22,7 @@ export function methodBuilder(method: string) {
 
       descriptor.value = (...args: any[]) => {
         const body = createBody(pBody, descriptor, args);
-        const resUrl = createPath(url, pPath, args);
+        const resUrl = createPath(url || '', pPath, args);
         const params = createQuery(pQuery, args);
         const headers = createHeaders(pHeaders, descriptor, this.getDefaultHeaders(), args);
 

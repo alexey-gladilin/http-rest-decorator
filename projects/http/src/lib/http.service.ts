@@ -32,27 +32,25 @@ export class HttpService {
   /**
    * consturctor
    * @param http http service for data exchange via http protocol
-   * @param webApiUrl url address of webApi service
-   * @param defaultHeaders default http header
    */
-  constructor(
-    public http: HttpClient,
-    public webApiUrl: string,
-    public defaultHeaders: string | { [name: string]: string | string[] }
-  ) { }
+  constructor(public http: HttpClient) { }
 
   /**
    * returns the url address of webApi
    */
   protected getBaseUrl(): string {
-    return this.webApiUrl;
+    return null;
   }
 
   /**
    * returns the default http request header
    */
   protected getDefaultHeaders(): string | { [name: string]: string | string[] } {
-    return this.defaultHeaders;
+    return {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'DataType': 'application/json'
+    };
   }
 
   /**
