@@ -37,7 +37,134 @@
           }
         }
       }
+    },
+    "demoApp": {
+      "root": "projects/demoApp/",
+      "sourceRoot": "projects/demoApp/src",
+      "projectType": "application",
+      "prefix": "app",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/demoApp",
+            "index": "projects/demoApp/src/index.html",
+            "main": "projects/demoApp/src/main.ts",
+            "polyfills": "projects/demoApp/src/polyfills.ts",
+            "tsConfig": "projects/demoApp/tsconfig.app.json",
+            "assets": [
+              "projects/demoApp/src/favicon.ico",
+              "projects/demoApp/src/assets"
+            ],
+            "styles": [
+              "projects/demoApp/src/styles.css"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/demoApp/src/environments/environment.ts",
+                  "with": "projects/demoApp/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "demoApp:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "demoApp:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "demoApp:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/demoApp/src/test.ts",
+            "polyfills": "projects/demoApp/src/polyfills.ts",
+            "tsConfig": "projects/demoApp/tsconfig.spec.json",
+            "karmaConfig": "projects/demoApp/karma.conf.js",
+            "styles": [
+              "projects/demoApp/src/styles.css"
+            ],
+            "scripts": [],
+            "assets": [
+              "projects/demoApp/src/favicon.ico",
+              "projects/demoApp/src/assets"
+            ]
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/demoApp/tsconfig.app.json",
+              "projects/demoApp/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "demoApp-e2e": {
+      "root": "projects/demoApp-e2e/",
+      "projectType": "application",
+      "prefix": "",
+      "architect": {
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/demoApp-e2e/protractor.conf.js",
+            "devServerTarget": "demoApp:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "demoApp:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": "projects/demoApp-e2e/tsconfig.e2e.json",
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }
   },
-  "defaultProject": "http"
+  "defaultProject": "demoApp"
 }
