@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from 'selenium-webdriver/http';
 import {
   HttpRequest,
   HttpEventType,
-  HttpResponse
+  HttpResponse,
+  HttpClient
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ResponseArgAdapter } from './http.decorator';
