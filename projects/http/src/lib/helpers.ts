@@ -12,7 +12,7 @@ import { Observable } from 'rxjs';
  * @param method http request type (GET, POST, PUT, etc.)
  */
 export function methodBuilder(method: string) {
-  return function (url?: string) {
+  return function (url: string = '') {
     return function (target: HttpService, propertyKey: string, descriptor: any) {
 
       const pPath = target[`${propertyKey}_path_parameters`];
@@ -20,9 +20,9 @@ export function methodBuilder(method: string) {
       const pBody = target[`${propertyKey}_body_parameters`];
       const pHeaders = target[`${propertyKey}_headers_parameters`];
 
-      descriptor.value = (...args: any[]) => {
+      descriptor.value = function (...args: any[]) {
         const body = createBody(pBody, descriptor, args);
-        const resUrl = createPath(url || '', pPath, args);
+        const resUrl = createPath(url, pPath, args);
         const params = createQuery(pQuery, args);
         const headers = createHeaders(pHeaders, descriptor, this.getDefaultHeaders(), args);
 
@@ -46,6 +46,8 @@ export function methodBuilder(method: string) {
 
         return obs$;
       };
+
+      return descriptor;
     };
   };
 }
@@ -62,7 +64,7 @@ export function methodBuilderSync(method: string) {
       const pBody = target[`${propertyKey}_body_parameters`];
       const pHeaders = target[`${propertyKey}_headers_parameters`];
 
-      descriptor.value = (...args: any[]) => {
+      descriptor.value = function (...args: any[]) {
 
         let body = createBody(pBody, descriptor, args);
         const resUrl = createPath(url, pPath, args);
