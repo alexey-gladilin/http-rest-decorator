@@ -1,3 +1,8 @@
-<h1>
-  http-rest-decorator
-</h1>
+<h1 class="title">http-rest-decorator</h1>
+<nav>
+  <a routerLink="/heroes" routerLinkActive="active">Heroes</a>
+</nav>
+<div [@routeAnimation]="getAnimationData(routerOutlet)">
+  <router-outlet #routerOutlet="outlet"></router-outlet>
+</div>
+<router-outlet name="popup"></router-outlet>
