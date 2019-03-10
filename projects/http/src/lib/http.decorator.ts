@@ -107,7 +107,7 @@ export function adapter(adapters: {
  * @param fn called function to generate mockup data
  * @param time time in milliseconds (to simulate server delays)
  */
-export function mockup(fn: Function, time?: number) {
+export function Mockup(fn: Function, time?: number) {
   return function (target: HttpService, propertyKey: string, descriptor: any) {
     descriptor.mockup = fn;
     descriptor.mockupArgs = {
