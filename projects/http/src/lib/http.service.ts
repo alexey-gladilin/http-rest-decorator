@@ -84,7 +84,8 @@ export class HttpService {
    * @param fn call function to
    * @param args the arguments of the called data generation function
    */
-  protected mockupInterceptor(request: HttpRequest<any>, fn: Function, args: { time: number }): Observable<HttpResponse<any>> {
+  protected mockupInterceptor(request: HttpRequest<any>, fn: Function, args: { time: number })
+    : Observable<HttpResponse<any>> {
     if (fn) {
 
       return new Observable<HttpResponse<any>>(obs => {
@@ -97,13 +98,19 @@ export class HttpService {
           return;
         }
 
+        const response = new HttpResponse({
+          headers: request.headers,
+          body: data,
+          status: 200
+        });
+
         if (args.time) {
           setTimeout(() => {
-            obs.next(data);
+            obs.next(response);
             obs.complete();
           }, args.time);
         } else {
-          obs.next(data);
+          obs.next(response);
           obs.complete();
         }
       });
