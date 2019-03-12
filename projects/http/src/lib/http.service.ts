@@ -92,7 +92,7 @@ export class HttpService {
 
         let data: any;
         try {
-          data = fn.call(undefined, request);
+          data = fn.call(this, request);
         } catch (err) {
           obs.error(err);
           return;

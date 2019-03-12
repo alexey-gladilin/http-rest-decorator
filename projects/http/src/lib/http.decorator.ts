@@ -55,7 +55,7 @@ export const HEAD = methodBuilder('HEAD');
  * sets a custom header for the REST method
  * @param pHeader custom key-value header
  */
-export function headers(pHeader: any) {
+export function Headers(pHeader: any) {
   return function (target: HttpService, propertyKey: string, descriptor: any) {
     descriptor.headers = pHeader;
 
@@ -67,7 +67,7 @@ export function headers(pHeader: any) {
  * determines what type of data the method can send
  * @param pProduces data type that can be sent
  */
-export function produces(pProduces: MediaType) {
+export function Produces(pProduces: MediaType) {
   return function (target: HttpService, propertyKey: string, descriptor: any) {
     descriptor.isJSON = pProduces === MediaType.json;
     descriptor.isFormData = pProduces === MediaType.formData;
@@ -90,7 +90,7 @@ export interface ResponseArgAdapter {
  * parameters for the transformation/data analysis function
  * @param adapters functions to be called for transformation
  */
-export function adapter(adapters: {
+export function Adapter(adapters: {
   /** handlers for preparing parameters in the called webApi */
   requestFn?: Function[],
   /** webApi response handlers */
@@ -120,20 +120,20 @@ export function Mockup(fn: Function, time?: number) {
 /**
  * variables are passed in url
  */
-export const path = paramBuilder('path');
+export const Path = paramBuilder('path');
 
 /**
  * parameter values to determine the type of serialization of the contents of the
  * request/response MIME type 'application/x-www-form-urlencoded'
  */
-export const query = paramBuilder('query');
+export const Query = paramBuilder('query');
 
 /**
  * body REST method
  */
-export const body = paramBuilder('body');
+export const Body = paramBuilder('body');
 
 /**
  * custom REST method header
  */
-export const header = paramBuilder('headers');
+export const Header = paramBuilder('headers');

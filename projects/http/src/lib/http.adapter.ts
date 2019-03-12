@@ -32,7 +32,7 @@ export class HttpAdapter {
           let responseBody = response.body;
 
           adapters.forEach(item => responseBody = item.fn
-            .call(undefined, responseBody, item.args, webApiservice));
+            .call(this, responseBody, item.args, webApiservice));
 
           return of(responseBody);
         } else {
@@ -52,7 +52,7 @@ export class HttpAdapter {
    */
   static baseRequestAdapter(request: HttpRequest<any>, adapterFn?: Function[]): HttpRequest<any> {
     if (adapterFn) {
-      adapterFn.forEach(fn => () => fn.call(undefined, request));
+      adapterFn.forEach(fn => () => fn.call(this, request));
     }
 
     return request;
@@ -64,7 +64,7 @@ export class HttpAdapter {
    * @param adapterFn function that is called to transform the data
    */
   static baseRequestAdapterSync(body: any, adapterFn?: Function) {
-    return adapterFn ? adapterFn.call(undefined, body) : body;
+    return adapterFn ? adapterFn.call(this, body) : body;
   }
 
   /**
@@ -74,6 +74,6 @@ export class HttpAdapter {
    * @param webApiService the service that initiated the call
    */
   static baseResponseAdapterSync(body, adapterFn?: Function, webApiService?: any) {
-    return adapterFn ? adapterFn.call(undefined, body, webApiService) : body;
+    return adapterFn ? adapterFn.call(this, body, webApiService) : body;
   }
 }
