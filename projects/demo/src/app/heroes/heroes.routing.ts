@@ -8,8 +8,8 @@ import { HeroDetailComponent } from './hero-detail/hero-detail.component';
 
 
 const heroesRoutes: Routes = [
-  { path: 'heroes', component: HeroesComponent },
-  { path: 'hero/:id', component: HeroDetailComponent }
+  { path: 'heroes', component: HeroesComponent, data: { animation: 'heroes' } },
+  { path: 'hero/:id', component: HeroDetailComponent, data: { animation: 'hero' } }
 ];
 
 @NgModule({

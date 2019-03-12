@@ -5,7 +5,10 @@ import {
   HttpService,
   BaseUrl,
   GET,
-  Mockup
+  Mockup,
+  Path,
+  Body,
+  POST
 } from 'http-rest-decorator';
 import { HeroMockup } from '../mockups/hero.mockup';
 
@@ -19,7 +22,30 @@ import { HeroMockup } from '../mockups/hero.mockup';
 @BaseUrl('http://mysite.com/api/hero')
 export class HeroWebApi extends HttpService {
 
+  /**
+   * returns a list of heroes.
+   * test data is used.
+   * if you remove the decorator Mockup, the call will be made
+   * to web Api via http Protocol
+   */
   @GET()
-  @Mockup(HeroMockup.getHeroes, 2000)
+  @Mockup(HeroMockup.getHeroes)
   getHeroes(): Observable<Hero[]> { return null; }
+
+  /**
+   * returns the hero
+   * test data is used
+   * @param id the ID of the hero
+   */
+  @GET('{id}')
+  @Mockup(HeroMockup.getHero)
+  getHero(@Path('id') id: number): Observable<Hero> { return null; }
+
+  /**
+   * saves the data of the hero
+   * @param request data to update
+   */
+  @POST()
+  @Mockup(HeroMockup.updateHero)
+  updateHero(@Body('request') request: Hero): Observable<Hero> { return null; }
 }
