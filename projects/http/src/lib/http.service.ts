@@ -1,4 +1,8 @@
-import { Injectable } from '@angular/core';
+import {
+  Injectable,
+  Inject,
+  Optional
+} from '@angular/core';
 import {
   HttpRequest,
   HttpEventType,
@@ -12,6 +16,8 @@ import {
   mergeMap
 } from 'rxjs/operators';
 import { HttpAdapter } from './http.adapter';
+import { HttpConfig } from './http.config';
+import { HTTP_CONFIG } from './http.module';
 
 /**
  * data type transmitted over http protocol
@@ -33,24 +39,30 @@ export class HttpService {
    * consturctor
    * @param http http service for data exchange via http protocol
    */
-  constructor(public http: HttpClient) { }
+  constructor(
+    public http: HttpClient,
+    @Optional() @Inject(HTTP_CONFIG) private config: HttpConfig
+  ) { }
 
   /**
    * returns the url address of webApi
    */
   protected getBaseUrl(): string {
-    return null;
+    return this.config !== null ? this.config.Url : null;
   }
 
   /**
    * returns the default http request header
    */
   protected getDefaultHeaders(): string | { [name: string]: string | string[] } {
-    return {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json',
-      'DataType': 'application/json'
-    };
+    return this.config !== null
+      ? this.config.Headers
+      :
+      {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'DataType': 'application/json'
+      };
   }
 
   /**
