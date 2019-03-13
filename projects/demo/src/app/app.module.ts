@@ -23,7 +23,7 @@ export const DEFAULT_HTTP_CONFIG: HttpConfig = {
 };
 
 /**
- * main component application
+ * main module application
  */
 @NgModule({
   declarations: [
