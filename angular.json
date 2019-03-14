@@ -3,17 +3,17 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "http": {
-      "root": "projects/http",
-      "sourceRoot": "projects/http/src",
+    "http-rest-decorator": {
+      "root": "projects/http-rest-decorator",
+      "sourceRoot": "projects/http-rest-decorator/src",
       "projectType": "library",
       "prefix": "ag",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
-            "tsConfig": "projects/http/tsconfig.lib.json",
-            "project": "projects/http/ng-package.json"
+            "tsConfig": "projects/http-rest-decorator/tsconfig.lib.json",
+            "project": "projects/http-rest-decorator/ng-package.json"
           }
         },
         "test": {

@@ -1,6 +1,6 @@
 {
-  "name": "http",
-  "version": "0.0.1",
+  "name": "http-rest-decorator",
+  "version": "1.0.0",
   "peerDependencies": {
     "@angular/common": "^7.2.0",
     "@angular/core": "^7.2.0"

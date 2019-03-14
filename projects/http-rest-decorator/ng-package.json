@@ -1,6 +1,6 @@
 {
   "$schema": "../../node_modules/ng-packagr/ng-package.schema.json",
-  "dest": "../../dist/http",
+  "dest": "../../dist/http-rest-decorator",
   "lib": {
     "entryFile": "src/public_api.ts"
   }

@@ -13,6 +13,7 @@ import {
  * the base class for transforming the http request data before sending
  *  as well as transforming the http data response after receiving
  */
+// @dynamic
 export class HttpAdapter {
 
   /**

@@ -20,7 +20,7 @@
     ],
     "paths": {
       "http-rest-decorator": [
-        "projects/http/src/public_api"
+        "projects/http-rest-decorator/src/public_api"
       ]
     }
   }
