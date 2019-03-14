@@ -1,6 +1,26 @@
 {
   "name": "http-rest-decorator",
   "version": "1.0.0",
+  "description": "This library allows to interact with rest api in your angular app.",
+  "author": {
+    "name": "Alexey Gladilin"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/alexey-gladilin/http-rest-decorator.git"
+  },
+  "bugs": {
+    "url": "https://github.com/alexey-gladilin/http-rest-decorator/issues"
+  },
+  "homepage": "https://github.com/alexey-gladilin/http-rest-decorator",
+  "keywords": [
+    "angular",
+    "typescript",
+    "http",
+    "rest",
+    "decorators"
+  ],
+  "license": "MIT",
   "peerDependencies": {
     "@angular/common": "^7.2.0",
     "@angular/core": "^7.2.0"
