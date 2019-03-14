@@ -5,7 +5,8 @@ import {
 } from './helpers';
 import {
   HttpService,
-  MediaType
+  MediaType,
+  HttpHeaderType
 } from './http.service';
 
 /**
@@ -26,7 +27,7 @@ export function BaseUrl(url: string) {
  * sets the default request header for each method HttpService
  * @param pHeaders http request headers
  */
-export function DefaultHeaders(pHeaders: string | { [name: string]: string | string[] }) {
+export function DefaultHeaders(pHeaders: HttpHeaderType) {
   return function <TFunction extends Function>(target: TFunction): TFunction {
     target.prototype.getDefaultHeaders = () => pHeaders;
     return target;
@@ -55,7 +56,7 @@ export const HEAD = methodBuilder('HEAD');
  * sets a custom header for the REST method
  * @param pHeader custom key-value header
  */
-export function Headers(pHeader: any) {
+export function Headers(pHeader: HttpHeaderType) {
   return function (target: HttpService, propertyKey: string, descriptor: any) {
     descriptor.headers = pHeader;
 

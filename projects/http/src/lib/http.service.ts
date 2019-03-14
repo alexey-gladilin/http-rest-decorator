@@ -28,6 +28,12 @@ export enum MediaType {
 }
 
 /**
+ * header type for http request
+ */
+export type HttpHeaderType = string | { [name: string]: string | string[] };
+
+
+/**
  * http communication service
  */
 @Injectable({
@@ -54,7 +60,7 @@ export class HttpService {
   /**
    * returns the default http request header
    */
-  protected getDefaultHeaders(): string | { [name: string]: string | string[] } {
+  protected getDefaultHeaders(): HttpHeaderType {
     return this.config !== null
       ? this.config.Headers
       :

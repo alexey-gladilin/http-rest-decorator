@@ -4,7 +4,10 @@ import {
   HttpRequest,
   HttpResponse
 } from '@angular/common/http';
-import { HttpService } from './http.service';
+import {
+  HttpService,
+  HttpHeaderType
+} from './http.service';
 import { Observable } from 'rxjs';
 
 /**
@@ -201,7 +204,7 @@ function createQuery(query: any[], args: any[]): HttpParams {
  */
 function createHeaders(pHeaders: any,
   descriptor: any,
-  defaultHeaders: string | { [name: string]: string | string[] },
+  defaultHeaders: HttpHeaderType,
   args: any[])
   : HttpHeaders {
   const headers = new HttpHeaders(defaultHeaders);
