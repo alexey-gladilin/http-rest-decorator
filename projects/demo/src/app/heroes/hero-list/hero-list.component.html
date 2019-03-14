@@ -3,7 +3,7 @@
   <li *ngFor="let hero of heroes$ | async"
     [class.selected]="hero.id === selectedId">
     <a [routerLink]="['/hero', hero.id]">
-      <span class="badge">{{ hero.id }}</span>{{ hero.name }}
+      <span class="badge">{{ hero.id }}</span>{{ hero.name }} ({{(hero.birthday | date) || 'none'}})
     </a>
   </li>
 </ul>

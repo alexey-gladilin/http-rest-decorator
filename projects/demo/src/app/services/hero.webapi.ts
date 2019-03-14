@@ -8,9 +8,11 @@ import {
   Mockup,
   Path,
   Body,
-  POST
+  POST,
+  Adapter
 } from 'http-rest-decorator';
 import { HeroMockup } from '../mockups/hero.mockup';
+import { HeroAdapter } from '../adapters/hero.adapter';
 
 
 /**
@@ -30,6 +32,11 @@ export class HeroWebApi extends HttpService {
    */
   @GET()
   @Mockup(HeroMockup.getHeroes)
+  @Adapter({
+    response: [{
+      fn: HeroAdapter.getHeroesTransform
+    }]
+  })
   getHeroes(): Observable<Hero[]> { return null; }
 
   /**
