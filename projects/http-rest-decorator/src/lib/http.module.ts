@@ -3,12 +3,16 @@ import {
   InjectionToken
 } from '@angular/core';
 import { HttpConfig } from './http.config';
+import { HttpClientModule } from '@angular/common/http';
 
 export let HTTP_CONFIG = new InjectionToken<HttpConfig>('http.config');
 
 @NgModule({
   imports: [
+    HttpClientModule
   ],
-  exports: []
+  exports: [
+    HttpClientModule
+  ]
 })
-export class HttpModule { }
+export class HttpRestDecoratorModule { }
