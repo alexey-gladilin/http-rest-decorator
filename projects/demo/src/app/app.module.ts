@@ -4,10 +4,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing';
 import { HeroesModule } from './heroes/heroes.module';
-import { HttpClientModule } from '@angular/common/http';
+
 import {
   HTTP_CONFIG,
-  HttpConfig
+  HttpConfig,
+  HttpRestDecoratorModule
 } from 'http-rest-decorator';
 
 /**
@@ -34,7 +35,7 @@ export const DEFAULT_HTTP_CONFIG: HttpConfig = {
     BrowserAnimationsModule,
     AppRoutingModule,
     HeroesModule,
-    HttpClientModule
+    HttpRestDecoratorModule
   ],
   providers: [{ provide: HTTP_CONFIG, useValue: DEFAULT_HTTP_CONFIG }],
   bootstrap: [AppComponent]
