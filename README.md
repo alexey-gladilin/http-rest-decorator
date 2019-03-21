@@ -46,6 +46,12 @@ npm install http-rest-decorator
 
 You can configure services to work with the Web Api in several ways
 
+
+**WebApi services must be declared in the module in the "providers" section instead (@Injectable({
+  providedIn: 'root'
+}) otherwise it will not work)*
+
+
 1. default configuration for all services (in *.module.ts)
 
 ```typescript
@@ -71,7 +77,10 @@ export const DEFAULT_HTTP_CONFIG: HttpConfig = {
  */
 @NgModule({
   ...
-  providers: [{ provide: HTTP_CONFIG, useValue: DEFAULT_HTTP_CONFIG }]
+  providers: [
+    { provide: HTTP_CONFIG, useValue: DEFAULT_HTTP_CONFIG },
+    HeroWebApi
+  ]
   ...
 })
 export class AppModule { }
@@ -84,9 +93,7 @@ export class AppModule { }
 /**
  * http service of communication with webApi in the context of heroes
  */
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 @BaseUrl('http://mysite.com/api/hero')
 @DefaultHeaders({
   'Accept': 'application/json',
