@@ -18,9 +18,7 @@ import { HeroAdapter } from '../adapters/hero.adapter';
 /**
  * http service of communication with webApi in the context of heroes
  */
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 @BaseUrl('http://mysite.com/api/hero')
 export class HeroWebApi extends HttpService {
 

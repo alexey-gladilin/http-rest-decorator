@@ -10,6 +10,7 @@ import {
   HttpConfig,
   HttpRestDecoratorModule
 } from 'http-rest-decorator';
+import { HeroWebApi } from './services/hero.webapi';
 
 /**
  * default http service configuration settings
@@ -37,7 +38,10 @@ export const DEFAULT_HTTP_CONFIG: HttpConfig = {
     HeroesModule,
     HttpRestDecoratorModule
   ],
-  providers: [{ provide: HTTP_CONFIG, useValue: DEFAULT_HTTP_CONFIG }],
+  providers: [
+    { provide: HTTP_CONFIG, useValue: DEFAULT_HTTP_CONFIG },
+    HeroWebApi
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
