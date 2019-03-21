@@ -1,6 +1,6 @@
 {
   "name": "http-rest-decorator",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "This library allows to interact with rest api in your angular app.",
   "author": {
     "name": "Alexey Gladilin"
