@@ -14,6 +14,8 @@ This library allows to interact with rest api in your angular app.
 - Use adapters to transform response data received from the webApi or to prepare data to be sent to the server
 - Flexible configuration for setting
 
+### Changelog
+&nbsp;&nbsp;&nbsp;&nbsp;Check out the <a href="https://github.com/alexey-gladilin/http-rest-decorator/blob/master/CHANGELOG.MD" rel="nofollow">changelog</a> to check all the latest changes.
 
 ### List of decorators
 *Class level*
