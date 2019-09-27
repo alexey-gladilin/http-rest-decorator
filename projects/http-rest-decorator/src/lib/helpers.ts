@@ -169,6 +169,12 @@ function createPath(url: string, path: any[], args: any[]): string {
     return urlItems[0] + (prms ? '?' + prms : '');
   }
 
+  const lastUndefinedIndex = resUrl.indexOf('/undefined', resUrl.length - '/undefined'.length);
+
+  if (lastUndefinedIndex !== -1) {
+    return resUrl.substring(0, lastUndefinedIndex);
+  }
+
   return resUrl;
 }
 
