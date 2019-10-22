@@ -43,9 +43,9 @@ export class HeroDetailComponent implements OnInit {
         return this.heroWebApi.getHero(heroId);
       })
     )
-      .subscribe(
-        x => this.hero = x
-      );
+      .subscribe({
+        next: x => this.hero = x
+      });
   }
 
   /**
@@ -60,9 +60,9 @@ export class HeroDetailComponent implements OnInit {
    */
   onSaveClick() {
     this.heroWebApi.updateHero(this.hero)
-      .subscribe(
-        x => alert('saved successfully')
-      );
+      .subscribe({
+        next: x => alert('saved successfully')
+      });
   }
 
 }
