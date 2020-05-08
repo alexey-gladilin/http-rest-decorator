@@ -1,3 +1,6 @@
+## 1.1.2
+### Bug fix
+- The header for synchronous post requests is created incorrectly
 ## 1.1.1
 ### Bug fix
 - If the last parameter in the decorated method contains an optional value the generated url contains '/undefined' at the end of the address string.

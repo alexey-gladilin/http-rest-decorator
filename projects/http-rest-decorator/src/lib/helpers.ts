@@ -71,8 +71,8 @@ export function methodBuilderSync(method: string) {
 
         let body = createBody(pBody, descriptor, args);
         const resUrl = createPath(url, pPath, args);
-        const params = createQuery(pQuery, args);
-        const headers = createHeaders(pHeaders, descriptor, this.getDefaultHeaders(), args);
+        const params = createQuerySync(pQuery, args);
+        const headers = this.getDefaultHeaders();
 
         const request = new XMLHttpRequest();
         request.open(method, this.getBaseUrl() + resUrl, false);
@@ -202,6 +202,37 @@ function createQuery(query: any[], args: any[]): HttpParams {
 }
 
 /**
+ * create parameters for request header
+ * @param query query parameters
+ * @param args parameters values
+ */
+function createQuerySync(query: any[], args: any[]): string {
+  const prms: string[] = [];
+
+  if (query) {
+    query
+      .filter(p => args[p.parameterIndex])
+      .forEach(p => {
+        const key = p.key;
+        const encodedKey = encodeURIComponent(key);
+        let value = args[p.parameterIndex];
+
+        if (value instanceof Array) {
+          prms.concat(value.map(v => `${encodedKey}=${encodeURIComponent(v)}`));
+          return;
+        }
+        if (value instanceof Object) {
+          value = JSON.stringify(value);
+        }
+
+        prms.push(`${encodeURIComponent(key)}=${encodeURIComponent(value)}`);
+      });
+  }
+
+  return prms.join('&');
+}
+
+/**
  * create http request headers
  * @param headers headers
  * @param descriptor descriptor
@@ -209,9 +240,9 @@ function createQuery(query: any[], args: any[]): HttpParams {
  * @param args args
  */
 function createHeaders(pHeaders: any,
-  descriptor: any,
-  defaultHeaders: HttpHeaderType,
-  args: any[])
+                       descriptor: any,
+                       defaultHeaders: HttpHeaderType,
+                       args: any[])
   : HttpHeaders {
   const headers = new HttpHeaders(defaultHeaders);
 
