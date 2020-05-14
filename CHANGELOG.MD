@@ -1,3 +1,6 @@
+## 1.1.3
+### Bug fix
+- request adapters don't work
 ## 1.1.2
 ### Bug fix
 - The header for synchronous post requests is created incorrectly
