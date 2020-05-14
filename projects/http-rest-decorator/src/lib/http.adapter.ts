@@ -53,7 +53,7 @@ export class HttpAdapter {
    */
   static baseRequestAdapter(request: HttpRequest<any>, adapterFn?: Function[]): HttpRequest<any> {
     if (adapterFn) {
-      adapterFn.forEach(fn => () => fn.call(this, request));
+      adapterFn.forEach(fn => fn.call(this, request));
     }
 
     return request;
