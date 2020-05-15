@@ -1,20 +1,8 @@
-import {
-  Injectable,
-  Inject,
-  Optional
-} from '@angular/core';
-import {
-  HttpRequest,
-  HttpEventType,
-  HttpResponse,
-  HttpClient
-} from '@angular/common/http';
+import { Inject, Injectable, Optional } from '@angular/core';
+import { HttpClient, HttpEventType, HttpRequest, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ResponseArgAdapter } from './http.decorator';
-import {
-  filter,
-  mergeMap
-} from 'rxjs/operators';
+import { filter, mergeMap } from 'rxjs/operators';
 import { HttpAdapter } from './http.adapter';
 import { HttpConfig } from './http.config';
 import { HTTP_CONFIG } from './http.module';
@@ -42,13 +30,14 @@ export type HttpHeaderType = string | { [name: string]: string | string[] };
 export class HttpService {
 
   /**
-   * consturctor
+   * constructor
    * @param http http service for data exchange via http protocol
    */
   constructor(
     public http: HttpClient,
     @Optional() @Inject(HTTP_CONFIG) private config: HttpConfig
-  ) { }
+  ) {
+  }
 
   /**
    * returns the url address of webApi
@@ -138,10 +127,12 @@ export class HttpService {
   /**
    * request interceptor (for request sync)
    * @param body request data sent to the server
+   * @param url URL
+   * @param args query parameter
    * @param adapterFn call function to prepare request data
    */
-  protected requestInterceptorSync(body: any, adapterFn?: Function): HttpRequest<any> {
-    return HttpAdapter.baseRequestAdapterSync(body, adapterFn);
+  protected requestInterceptorSync(body: string, url: string, args: string, adapterFn?: Function[]): string {
+    return HttpAdapter.baseRequestAdapterSync(body, url, args, adapterFn);
   }
 
   /**

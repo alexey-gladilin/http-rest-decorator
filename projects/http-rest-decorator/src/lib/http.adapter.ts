@@ -1,13 +1,6 @@
-import {
-  HttpResponse,
-  HttpRequest
-} from '@angular/common/http';
+import { HttpRequest, HttpResponse } from '@angular/common/http';
 import { ResponseArgAdapter } from './http.decorator';
-import {
-  Observable,
-  of,
-  throwError
-} from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
 
 /**
  * the base class for transforming the http request data before sending
@@ -62,10 +55,16 @@ export class HttpAdapter {
   /**
    * basic method for transforming asynchronous request data
    * @param body body request
+   * @param url URL
+   * @param args query parameter
    * @param adapterFn function that is called to transform the data
    */
-  static baseRequestAdapterSync(body: any, adapterFn?: Function) {
-    return adapterFn ? adapterFn.call(this, body) : body;
+  static baseRequestAdapterSync(body: string, url: string, args: string, adapterFn?: Function[]) {
+    if (adapterFn) {
+      adapterFn.forEach(fn => body = fn.call(this, body, url, args));
+    }
+
+    return body;
   }
 
   /**

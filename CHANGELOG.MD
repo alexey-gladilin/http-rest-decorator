@@ -1,3 +1,6 @@
+## 1.1.4
+### Features
+- Transmission parameters of the request synchronous call
 ## 1.1.3
 ### Bug fix
 - request adapters don't work

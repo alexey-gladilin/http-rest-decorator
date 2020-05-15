@@ -1,13 +1,5 @@
-import {
-  HttpParams,
-  HttpHeaders,
-  HttpRequest,
-  HttpResponse
-} from '@angular/common/http';
-import {
-  HttpService,
-  HttpHeaderType
-} from './http.service';
+import { HttpHeaders, HttpParams, HttpRequest, HttpResponse } from '@angular/common/http';
+import { HttpHeaderType, HttpService } from './http.service';
 import { Observable } from 'rxjs';
 
 /**
@@ -86,7 +78,8 @@ export function methodBuilderSync(method: string) {
         });
 
         if (descriptor.adapters) {
-          body = this.requestInterceptorSync(body, descriptor.adapters.requestFn);
+          body = this.requestInterceptorSync(body, this.getBaseUrl() + resUrl,
+            createQuerySync(pPath, args), descriptor.adapters.requestFn);
         }
 
         request.send(body);
