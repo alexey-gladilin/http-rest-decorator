@@ -1,6 +1,6 @@
 import { HttpHeaders, HttpParams, HttpRequest, HttpResponse } from '@angular/common/http';
 import { HttpHeaderType, HttpService } from './http.service';
-import { Observable } from 'rxjs';
+import { Observable} from 'rxjs';
 
 /**
  * http request decorator
@@ -27,7 +27,8 @@ export function methodBuilder(method: string) {
         });
 
         if (descriptor.adapters) {
-          request = this.requestInterceptor(request, descriptor.adapters.requestFn);
+          request = this.requestInterceptor(request, descriptor.adapters.requestFn,
+            descriptor.adapters ? descriptor.adapters.exceptionFn : null);
         }
 
         let obs$: Observable<HttpResponse<any>>;
@@ -37,7 +38,9 @@ export function methodBuilder(method: string) {
         } else {
           obs$ = this.http.request(request);
         }
-        obs$ = this.responseInterceptor(obs$, descriptor.adapters ? descriptor.adapters.response : null);
+        obs$ = this.responseInterceptor(obs$,
+          descriptor.adapters ? descriptor.adapters.response : null,
+          descriptor.adapters ? descriptor.adapters.exceptionFn : null);
 
         return obs$;
       };
@@ -79,14 +82,16 @@ export function methodBuilderSync(method: string) {
 
         if (descriptor.adapters) {
           body = this.requestInterceptorSync(body, this.getBaseUrl() + resUrl,
-            createQuerySync(pPath, args), descriptor.adapters.requestFn);
+            createQuerySync(pPath, args), descriptor.adapters.requestFn,
+            descriptor.adapters ? descriptor.adapters.exceptionFn : null);
         }
 
         request.send(body);
 
         const responseBody = JSON.parse(request.response);
         if (descriptor.adapters) {
-          return this.responseInterceptorSync(responseBody, descriptor.adapters.responseFn);
+          return this.responseInterceptorSync(responseBody, descriptor.adapters.responseFn,
+            descriptor.adapters ? descriptor.adapters.exceptionFn : null);
         } else {
           return responseBody;
         }

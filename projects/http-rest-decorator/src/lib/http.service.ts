@@ -1,8 +1,8 @@
 import { Inject, Injectable, Optional } from '@angular/core';
 import { HttpClient, HttpEventType, HttpRequest, HttpResponse } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { ResponseArgAdapter } from './http.decorator';
-import { filter, mergeMap } from 'rxjs/operators';
+import { catchError, filter, mergeMap } from 'rxjs/operators';
 import { HttpAdapter } from './http.adapter';
 import { HttpConfig } from './http.config';
 import { HTTP_CONFIG } from './http.module';
@@ -64,24 +64,32 @@ export class HttpService {
    * responses interceptor
    * @param request request sent to the server
    * @param adapterFn call function to prepare request data
+   * @param exceptionAdapterFn exception handler
    */
-  protected requestInterceptor(request: HttpRequest<any>, adapterFn?: Function[]): HttpRequest<any> {
-    return HttpAdapter.baseRequestAdapter(request, adapterFn);
+  protected requestInterceptor(request: HttpRequest<any>, adapterFn?: Function[], exceptionAdapterFn?: Function): HttpRequest<any> {
+    return HttpAdapter.baseRequestAdapter(request, adapterFn, exceptionAdapterFn);
   }
 
   /**
    * responses interceptor
    * @param response$ response received from the server
    * @param adapters call function metadata to prepare response data
+   * @param exceptionAdapterFn exception handler
    */
-  protected responseInterceptor<T>(response$: Observable<any>, adapters?: ResponseArgAdapter[])
+  protected responseInterceptor<T>(response$: Observable<any>, adapters?: ResponseArgAdapter[], exceptionAdapterFn?: Function)
     : Observable<T> {
     return response$
       .pipe(
         filter(event => {
           return event.type === HttpEventType.Response;
         }),
-        mergeMap(res => HttpAdapter.baseResponseAdapter(res, adapters, this))
+        catchError(err => {
+          if (exceptionAdapterFn) {
+            return throwError(exceptionAdapterFn(err));
+          }
+          return throwError(err);
+        }),
+        mergeMap(res => HttpAdapter.baseResponseAdapter(res, adapters, this, exceptionAdapterFn))
       );
   }
 
@@ -130,17 +138,19 @@ export class HttpService {
    * @param url URL
    * @param args query parameter
    * @param adapterFn call function to prepare request data
+   * @param exceptionAdapterFn exception handler
    */
-  protected requestInterceptorSync(body: string, url: string, args: string, adapterFn?: Function[]): string {
-    return HttpAdapter.baseRequestAdapterSync(body, url, args, adapterFn);
+  protected requestInterceptorSync(body: string, url: string, args: string, adapterFn?: Function[], exceptionAdapterFn?: Function): string {
+    return HttpAdapter.baseRequestAdapterSync(body, url, args, adapterFn, exceptionAdapterFn);
   }
 
   /**
    * responses interceptor (for request sync)
    * @param body response received from the server
    * @param adapterFn call function to prepare response data
+   * @param exceptionAdapterFn exception handler
    */
-  protected responseInterceptorSync(body: any, adapterFn?: Function): any {
-    return HttpAdapter.baseResponseAdapterSync(body, adapterFn, this);
+  protected responseInterceptorSync(body: any, adapterFn?: Function, exceptionAdapterFn?: Function): any {
+    return HttpAdapter.baseResponseAdapterSync(body, adapterFn, this, exceptionAdapterFn);
   }
 }

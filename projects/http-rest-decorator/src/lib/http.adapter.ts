@@ -13,12 +13,14 @@ export class HttpAdapter {
    * basic method for transforming http response data
    * @param response http response
    * @param adapters metadata of functions that are called for data transformation
-   * @param webApiservice the service that initiated the call
+   * @param webApiService the service that initiated the call
+   * @param exceptionFn exception handler
    */
   static baseResponseAdapter(
     response: HttpResponse<any>,
     adapters?: ResponseArgAdapter[],
-    webApiservice?: any
+    webApiService?: any,
+    exceptionFn?: Function
   ): Observable<any> {
     if (response.status === 200) {
       try {
@@ -26,14 +28,18 @@ export class HttpAdapter {
           let responseBody = response.body;
 
           adapters.forEach(item => responseBody = item.fn
-            .call(this, responseBody, item.args, webApiservice));
+            .call(this, responseBody, item.args, webApiService));
 
           return of(responseBody);
         } else {
           return of(response.body);
         }
       } catch (err) {
-        return throwError(err);
+        let transformedErr = err;
+        if (exceptionFn) {
+          transformedErr = exceptionFn(err);
+        }
+        return throwError(transformedErr);
       }
     }
     return of(response);
@@ -43,10 +49,21 @@ export class HttpAdapter {
    * basic method for transforming request data
    * @param request http request
    * @param adapterFn metadata of functions that are called for data transformation
+   * @param exceptionFn exception handler
    */
-  static baseRequestAdapter(request: HttpRequest<any>, adapterFn?: Function[]): HttpRequest<any> {
+  static baseRequestAdapter(request: HttpRequest<any>, adapterFn?: Function[],
+                            exceptionFn?: Function): HttpRequest<any> {
     if (adapterFn) {
-      adapterFn.forEach(fn => fn.call(this, request));
+      try {
+        adapterFn.forEach(fn => fn.call(this, request));
+      } catch (err) {
+        let transformedErr = err;
+        if (exceptionFn) {
+          transformedErr = exceptionFn(err);
+        }
+
+        throw transformedErr;
+      }
     }
 
     return request;
@@ -58,10 +75,20 @@ export class HttpAdapter {
    * @param url URL
    * @param args query parameter
    * @param adapterFn function that is called to transform the data
+   * @param exceptionFn exception handler
    */
-  static baseRequestAdapterSync(body: string, url: string, args: string, adapterFn?: Function[]) {
+  static baseRequestAdapterSync(body: string, url: string, args: string, adapterFn?: Function[], exceptionFn?: Function) {
     if (adapterFn) {
-      adapterFn.forEach(fn => body = fn.call(this, body, url, args));
+      try {
+        adapterFn.forEach(fn => body = fn.call(this, body, url, args));
+      } catch (err) {
+        let transformedErr = err;
+        if (exceptionFn) {
+          transformedErr = exceptionFn(err);
+        }
+
+        throw transformedErr;
+      }
     }
 
     return body;
@@ -72,8 +99,18 @@ export class HttpAdapter {
    * @param body body response
    * @param adapterFn function tha is called to transform the data
    * @param webApiService the service that initiated the call
+   * @param exceptionFn exception handler
    */
-  static baseResponseAdapterSync(body, adapterFn?: Function, webApiService?: any) {
-    return adapterFn ? adapterFn.call(this, body, webApiService) : body;
+  static baseResponseAdapterSync(body, adapterFn?: Function, webApiService?: any, exceptionFn?: Function) {
+    try {
+      return adapterFn ? adapterFn.call(this, body, webApiService) : body;
+    } catch (err) {
+      let transformedErr = err;
+      if (exceptionFn) {
+        transformedErr = exceptionFn(err);
+      }
+
+      throw transformedErr;
+    }
   }
 }

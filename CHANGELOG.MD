@@ -1,3 +1,8 @@
+## 1.2.0
+### Features
+- Adapters now have the ability to intercept errors that occur at the data conversion level,
+as well as transport protocol errors. This functionality can be used for standardization
+errors that occur.
 ## 1.1.4
 ### Features
 - Transmission parameters of the request synchronous call
