@@ -95,7 +95,7 @@ export function Adapter(adapters: {
   /** handlers for preparing parameters in the called webApi */
   requestFn?: Function[],
   /** webApi response handlers */
-  response: ResponseArgAdapter[],
+  response?: ResponseArgAdapter[],
   /** exception handler */
   exceptionFn?: Function
 }) {

@@ -1,3 +1,6 @@
+## 1.2.1
+### Features
+- In adapters the response handler is made an optional property.
 ## 1.2.0
 ### Features
 - Adapters now have the ability to intercept errors that occur at the data conversion level,
