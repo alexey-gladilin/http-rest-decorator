@@ -1,6 +1,6 @@
 {
   "name": "http-rest-decorator",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "This library allows to interact with rest api in your angular app.",
   "author": {
     "name": "Alexey Gladilin"
@@ -22,10 +22,10 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "tslib": "^2.0.1"
+    "tslib": "^2.0.0"
   },
   "peerDependencies": {
-    "@angular/common": ">=11.2.11",
-    "@angular/core": ">=11.2.11"
+    "@angular/common": ">=8.2.5",
+    "@angular/core": ">=8.2.5"
   }
 }
