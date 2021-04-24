@@ -1,3 +1,9 @@
+## 2.0.1
+### Features
+- Updated dependency
+## 2.0.0
+### Features
+- Updated to Angular version 11.2.11
 ## 1.2.1
 ### Features
 - In adapters the response handler is made an optional property.
